@@ -19,7 +19,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL: "postgresql://nati:nati123@localhost:5432/school"
+      DATABASE_URL: "postgresql://nati:nati123@postgres:5432/school" # This needs to be a string
     depends_on:
       - postgres
 
