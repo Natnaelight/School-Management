@@ -4,8 +4,6 @@ FROM node:18
 # Set the working directory inside the container
 WORKDIR /app
 
-
-
 # Copy package.json and package-lock.json files
 COPY package*.json ./
 
@@ -15,14 +13,11 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Generate Database
-RUN npx prisma migrate dev --name init
-
 # Build the Next.js application
 RUN npm run build
 
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Start the Next.js application
-CMD ["npm", "start"]
+# Run database migrations at runtime and start the application
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
